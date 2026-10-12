@@ -822,14 +822,23 @@ footer {
     gap: 16px;
 }
 
-.avaliacao-cabecalho img {
+.avaliacao-foto-perfil {
     flex: 0 0 76px;
     width: 76px;
     height: 76px;
-    object-fit: cover;
+    overflow: hidden;
     border: 2px solid #d7b56d;
     border-radius: 50%;
     box-shadow: 0 0 0 4px rgba(215, 181, 109, 0.1);
+}
+
+.avaliacao-foto-perfil img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(9px);
+    transform: scale(1.18);
 }
 
 .avaliacao-cabecalho h3 {
@@ -856,7 +865,7 @@ footer {
         padding: 20px;
     }
 
-    .avaliacao-cabecalho img {
+    .avaliacao-foto-perfil {
         flex-basis: 68px;
         width: 68px;
         height: 68px;
