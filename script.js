@@ -1,58 +1,8 @@
 const linkWhatsApp = 'https://wa.me/message/DGO24NEAZGTFE1';
-const hospedagemEstatica = window.location.hostname.endsWith('.github.io');
-const apiAgendamentos = window.location.protocol === 'file:'
-    ? 'http://localhost:3000/api/agendamentos'
-    : '/api/agendamentos';
-
-if (hospedagemEstatica) {
-    document.querySelector('.aviso-whatsapp').textContent =
-        'Seu pedido será enviado pelo WhatsApp. Os agendamentos não ficam salvos no site.';
-}
 
 function abrirWhatsApp() {
     window.open(linkWhatsApp, '_blank', 'noopener,noreferrer');
 }
-
-document.getElementById('form-agendamento').addEventListener('submit', async function(event) {
-    event.preventDefault();
-
-    const nome = document.getElementById('nome').value.trim();
-    const telefone = document.getElementById('telefone').value.trim();
-    const servicoSelect = document.getElementById('servico');
-    const servico = servicoSelect.options[servicoSelect.selectedIndex].text;
-    const data = document.getElementById('data').value;
-    const horario = document.getElementById('horario').value;
-
-    const dados = { nome, telefone, servico, data, horario };
-
-    if (hospedagemEstatica) {
-        abrirWhatsApp();
-        document.getElementById('form-agendamento').reset();
-        return;
-    }
-
-    try {
-        const resposta = await fetch(apiAgendamentos, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(dados)
-        });
-
-        if (!resposta.ok) {
-            const erro = await resposta.json();
-            throw new Error(erro.erro || 'Não foi possível salvar o agendamento.');
-        }
-
-    } catch (erro) {
-        alert(erro.message);
-        return;
-    }
-
-    abrirWhatsApp();
-
-    // Limpar formulário
-    document.getElementById('form-agendamento').reset();
-});
 
 const chatToggle = document.getElementById('chat-toggle');
 const chatWidget = document.getElementById('chat-widget');
