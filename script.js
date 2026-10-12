@@ -1,4 +1,4 @@
-const numeroWhatsApp = '';
+const linkWhatsApp = 'https://wa.me/message/DGO24NEAZGTFE1';
 const hospedagemEstatica = window.location.hostname.endsWith('.github.io');
 const apiAgendamentos = window.location.protocol === 'file:'
     ? 'http://localhost:3000/api/agendamentos'
@@ -9,16 +9,8 @@ if (hospedagemEstatica) {
         'Seu pedido será enviado pelo WhatsApp. Os agendamentos não ficam salvos no site.';
 }
 
-function abrirWhatsAppComMensagem(mensagem) {
-    const baseWhatsApp = numeroWhatsApp ? `https://wa.me/${numeroWhatsApp}` : 'https://wa.me/';
-    const urlWhatsApp = `${baseWhatsApp}?text=${encodeURIComponent(mensagem)}`;
-    window.open(urlWhatsApp, '_blank');
-    return urlWhatsApp;
-}
-
-function criarMensagemAgendamento({ nome, telefone, servico, data, horario }) {
-    const dataFormatada = data.split('-').reverse().join('/');
-    return `Olá! 👋\n\nGostaria de agendar um serviço de estética:\n\n📋 *Dados do Agendamento:*\n👤 Nome: ${nome}\n📱 Telefone: ${telefone}\n💆 Serviço: ${servico}\n📅 Data: ${dataFormatada}\n⏰ Horário: ${horario}\n\nPor favor, confirme a disponibilidade.`;
+function abrirWhatsApp() {
+    window.open(linkWhatsApp, '_blank', 'noopener,noreferrer');
 }
 
 document.getElementById('form-agendamento').addEventListener('submit', async function(event) {
@@ -34,7 +26,7 @@ document.getElementById('form-agendamento').addEventListener('submit', async fun
     const dados = { nome, telefone, servico, data, horario };
 
     if (hospedagemEstatica) {
-        abrirWhatsAppComMensagem(criarMensagemAgendamento(dados));
+        abrirWhatsApp();
         document.getElementById('form-agendamento').reset();
         return;
     }
@@ -56,7 +48,7 @@ document.getElementById('form-agendamento').addEventListener('submit', async fun
         return;
     }
 
-    abrirWhatsAppComMensagem(criarMensagemAgendamento(dados));
+    abrirWhatsApp();
 
     // Limpar formulário
     document.getElementById('form-agendamento').reset();
@@ -77,58 +69,11 @@ function appendMessage(message, type) {
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-function extrairDadosDoTexto(texto) {
-    const resultado = {
-        servico: '',
-        data: '',
-        horario: ''
-    };
-    const textoNormalizado = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-
-    if (textoNormalizado.includes('drenagem')) resultado.servico = 'Drenagem Linfática';
-    else if (textoNormalizado.includes('redux')) resultado.servico = 'Massagem Redux';
-    else if (textoNormalizado.includes('auriculo')) resultado.servico = 'Auriculoterapia';
-    else if (textoNormalizado.includes('clareamento')) resultado.servico = 'Clareamento Personalizado';
-    else if (textoNormalizado.includes('detox') || textoNormalizado.includes('tratamento facial')) {
-        resultado.servico = 'Tratamentos & Detox Facial';
-    } else if (textoNormalizado.includes('depilacao')) resultado.servico = 'Depilação a Cera';
-    else if (textoNormalizado.includes('limpeza')) resultado.servico = 'Limpeza de Pele';
-    else if (textoNormalizado.includes('massagem')) resultado.servico = 'Massagem Relaxante & Terapêutica';
-
-    const matchData = texto.match(/(\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\d{4}[/-]\d{1,2}[/-]\d{1,2})/);
-    if (matchData) {
-        resultado.data = matchData[0].replace('/', '/');
-    }
-
-    const matchHorario = texto.match(/(\d{1,2}:\d{2})/);
-    if (matchHorario) {
-        resultado.horario = matchHorario[1];
-    }
-
-    return resultado;
-}
-
 function responderIA(mensagem) {
     const texto = mensagem.toLowerCase();
 
     if (texto.includes('agendar') || texto.includes('horario') || texto.includes('horário')) {
-        const dados = extrairDadosDoTexto(mensagem);
-        let mensagemAgendamento = 'Olá! Gostaria de agendar um serviço de estética.\n\n📋 Dados do cliente:\n';
-
-        if (dados.servico) {
-            mensagemAgendamento += `💆 Serviço: ${dados.servico}\n`;
-        }
-
-        if (dados.data) {
-            mensagemAgendamento += `📅 Data: ${dados.data}\n`;
-        }
-
-        if (dados.horario) {
-            mensagemAgendamento += `⏰ Horário: ${dados.horario}\n`;
-        }
-
-        mensagemAgendamento += `\nMensagem do cliente: ${mensagem}`;
-        abrirWhatsAppComMensagem(mensagemAgendamento);
+        abrirWhatsApp();
         return 'Perfeito! Vou encaminhar seu agendamento para o WhatsApp da profissional.';
     }
 
@@ -188,10 +133,7 @@ function responderIA(mensagem) {
 }
 
 chatToggle.addEventListener('click', function() {
-    const mensagemInicial = 'Olá! Gostaria de saber mais sobre os serviços e agendamentos.';
-    const baseWhatsApp = numeroWhatsApp ? `https://wa.me/${numeroWhatsApp}` : 'https://wa.me/';
-    const urlWhatsApp = `${baseWhatsApp}?text=${encodeURIComponent(mensagemInicial)}`;
-    window.open(urlWhatsApp, '_blank');
+    abrirWhatsApp();
 });
 
 chatClose.addEventListener('click', function() {
