@@ -287,7 +287,7 @@ iframe {
 }
 
 #localizacao a {
-    color: #ff1493;
+    color: #e1c47d;
     text-decoration: none;
 }
 
@@ -295,9 +295,57 @@ iframe {
     text-decoration: underline;
 }
 
-#localizacao img {
-    vertical-align: middle;
-    margin-right: 5px;
+#localizacao {
+    text-align: center;
+}
+
+.localizacao-contatos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin: 0 0 24px;
+}
+
+.localizacao-contatos p {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 210px;
+    margin: 0;
+    padding: 14px 18px;
+    border: 1px solid rgba(215, 181, 109, 0.24);
+    border-radius: 12px;
+    background: linear-gradient(145deg, #19160f 0%, #100f0c 100%);
+    color: #d0c6b2;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.localizacao-contatos strong {
+    color: #e8cf91;
+}
+
+.icone-contato {
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #d7b56d;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
+}
+
+.icone-instagram-ponto {
+    fill: #d7b56d;
+    stroke: none;
+}
+
+#localizacao iframe {
+    border: 1px solid rgba(215, 181, 109, 0.35);
+    border-radius: 12px;
+    height: 350px;
 }
 
 .chat-toggle {
