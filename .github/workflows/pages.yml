@@ -27,7 +27,7 @@ jobs:
       - name: Prepare static site
         run: |
           mkdir -p public
-          cp index.html styles.css script.js leizi.jpg.jpeg avaliacao-*.jpg public/
+          cp index.html styles.css script.js leizi.jpg.jpeg avaliacao-*.jpg denise-terra.jpg raquel-campos.jpg rafaela-cavalcante.jpg public/
           touch public/.nojekyll
           test -s public/index.html
           test -s public/styles.css
@@ -36,6 +36,9 @@ jobs:
           test -s public/avaliacao-denise-terra.jpg
           test -s public/avaliacao-raquel-campos.jpg
           test -s public/avaliacao-rafaela-cavalcante.jpg
+          test -s public/denise-terra.jpg
+          test -s public/raquel-campos.jpg
+          test -s public/rafaela-cavalcante.jpg
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
