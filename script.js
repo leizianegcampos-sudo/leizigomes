@@ -1,19 +1,17 @@
-const numeroWhatsApp = '5521977801823';
+const numeroWhatsApp = '';
 const hospedagemEstatica = window.location.hostname.endsWith('.github.io');
 const apiAgendamentos = window.location.protocol === 'file:'
     ? 'http://localhost:3000/api/agendamentos'
     : '/api/agendamentos';
 
 if (hospedagemEstatica) {
-    document.getElementById('clientes').hidden = true;
-    const linkClientes = document.querySelector('nav a[href="#clientes"]');
-    if (linkClientes) linkClientes.closest('li').hidden = true;
     document.querySelector('.aviso-whatsapp').textContent =
         'Seu pedido será enviado pelo WhatsApp. Os agendamentos não ficam salvos no site.';
 }
 
 function abrirWhatsAppComMensagem(mensagem) {
-    const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+    const baseWhatsApp = numeroWhatsApp ? `https://wa.me/${numeroWhatsApp}` : 'https://wa.me/';
+    const urlWhatsApp = `${baseWhatsApp}?text=${encodeURIComponent(mensagem)}`;
     window.open(urlWhatsApp, '_blank');
     return urlWhatsApp;
 }
@@ -21,30 +19,6 @@ function abrirWhatsAppComMensagem(mensagem) {
 function criarMensagemAgendamento({ nome, telefone, servico, data, horario }) {
     const dataFormatada = data.split('-').reverse().join('/');
     return `Olá! 👋\n\nGostaria de agendar um serviço de estética:\n\n📋 *Dados do Agendamento:*\n👤 Nome: ${nome}\n📱 Telefone: ${telefone}\n💆 Serviço: ${servico}\n📅 Data: ${dataFormatada}\n⏰ Horário: ${horario}\n\nPor favor, confirme a disponibilidade.`;
-}
-
-function adicionarAgendamentoNaTabela(agendamento) {
-    const tabela = document.getElementById('tabela-clientes').getElementsByTagName('tbody')[0];
-    const novaLinha = tabela.insertRow();
-    const dataFormatada = agendamento.data.split('-').reverse().join('/');
-
-    [agendamento.nome, agendamento.telefone, agendamento.servico, dataFormatada, agendamento.horario]
-        .forEach(function(valor) {
-            novaLinha.insertCell().textContent = valor;
-        });
-}
-
-function atualizarTabela(agendamentos) {
-    const tabela = document.getElementById('tabela-clientes').getElementsByTagName('tbody')[0];
-    tabela.innerHTML = '';
-    agendamentos.forEach(adicionarAgendamentoNaTabela);
-    document.getElementById('total-clientes').textContent = agendamentos.length;
-}
-
-async function carregarAgendamentos() {
-    const resposta = await fetch(apiAgendamentos);
-    if (!resposta.ok) throw new Error('Não foi possível carregar os agendamentos.');
-    atualizarTabela(await resposta.json());
 }
 
 document.getElementById('form-agendamento').addEventListener('submit', async function(event) {
@@ -77,9 +51,6 @@ document.getElementById('form-agendamento').addEventListener('submit', async fun
             throw new Error(erro.erro || 'Não foi possível salvar o agendamento.');
         }
 
-        adicionarAgendamentoNaTabela(await resposta.json());
-        document.getElementById('total-clientes').textContent =
-            document.getElementById('tabela-clientes').getElementsByTagName('tbody')[0].rows.length;
     } catch (erro) {
         alert(erro.message);
         return;
@@ -90,12 +61,6 @@ document.getElementById('form-agendamento').addEventListener('submit', async fun
     // Limpar formulário
     document.getElementById('form-agendamento').reset();
 });
-
-if (!hospedagemEstatica) {
-    carregarAgendamentos().catch(function(erro) {
-        console.error(erro);
-    });
-}
 
 const chatToggle = document.getElementById('chat-toggle');
 const chatWidget = document.getElementById('chat-widget');
@@ -223,10 +188,10 @@ function responderIA(mensagem) {
 }
 
 chatToggle.addEventListener('click', function() {
-    chatWidget.classList.toggle('open');
-    if (chatWidget.classList.contains('open')) {
-        chatInput.focus();
-    }
+    const mensagemInicial = 'Olá! Gostaria de saber mais sobre os serviços e agendamentos.';
+    const baseWhatsApp = numeroWhatsApp ? `https://wa.me/${numeroWhatsApp}` : 'https://wa.me/';
+    const urlWhatsApp = `${baseWhatsApp}?text=${encodeURIComponent(mensagemInicial)}`;
+    window.open(urlWhatsApp, '_blank');
 });
 
 chatClose.addEventListener('click', function() {
