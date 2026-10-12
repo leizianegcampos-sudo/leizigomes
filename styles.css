@@ -823,9 +823,9 @@ footer {
 }
 
 .avaliacao-foto-perfil {
-    flex: 0 0 76px;
-    width: 76px;
-    height: 76px;
+    flex: 0 0 60px;
+    width: 60px;
+    height: 60px;
     overflow: hidden;
     border: 2px solid #d7b56d;
     border-radius: 50%;
@@ -866,9 +866,9 @@ footer {
     }
 
     .avaliacao-foto-perfil {
-        flex-basis: 68px;
-        width: 68px;
-        height: 68px;
+        flex-basis: 52px;
+        width: 52px;
+        height: 52px;
     }
 }
 
