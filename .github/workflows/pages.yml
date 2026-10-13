@@ -27,7 +27,7 @@ jobs:
       - name: Prepare static site
         run: |
           mkdir -p public
-          cp index.html styles.css script.js leizi.jpg.jpeg leizi-atendimento.jpg leizi-cuidado.jpg servico-cuidados-faciais.jpg servico-massagem-corporal-maos.jpg servico-massagem-com-oleo.jpg servico-auriculoterapia.jpg servico-depilacao-cera.jpg servico-facial-detox.jpg servico-massagem-corporal.jpg servico-tratamento-facial.jpg servico-depilacao.jpg servico-cuidado-corporal.jpg avaliacao-*.jpg denise-terra.jpg raquel-campos.jpg rafaela-cavalcante.jpg public/
+          cp index.html styles.css script.js leizi.jpg.jpeg leizi-atendimento.jpg leizi-cuidado.jpg servico-cuidados-faciais.jpg servico-massagem-corporal-maos.jpg servico-massagem-com-oleo.jpg servico-auriculoterapia.jpg servico-depilacao-cera.jpg avaliacao-*.jpg denise-terra.jpg raquel-campos.jpg rafaela-cavalcante.jpg public/
           touch public/.nojekyll
           test -s public/index.html
           test -s public/styles.css
@@ -40,11 +40,6 @@ jobs:
           test -s public/servico-massagem-com-oleo.jpg
           test -s public/servico-auriculoterapia.jpg
           test -s public/servico-depilacao-cera.jpg
-          test -s public/servico-facial-detox.jpg
-          test -s public/servico-massagem-corporal.jpg
-          test -s public/servico-tratamento-facial.jpg
-          test -s public/servico-depilacao.jpg
-          test -s public/servico-cuidado-corporal.jpg
           test -s public/avaliacao-denise-terra.jpg
           test -s public/avaliacao-raquel-campos.jpg
           test -s public/avaliacao-rafaela-cavalcante.jpg
