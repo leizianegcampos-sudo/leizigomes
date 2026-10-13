@@ -741,8 +741,19 @@ footer {
 }
 
 .jeito-de-cuidar {
+    position: relative;
+    isolation: isolate;
     background: linear-gradient(145deg, #11100e 0%, #19150d 100%);
     padding: clamp(28px, 5vw, 56px);
+}
+
+.jeito-de-cuidar::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: url("leizi-cuidado.jpg") center 42% / cover no-repeat;
+    content: "";
+    opacity: 0.1;
 }
 
 .cuidado-introducao {
