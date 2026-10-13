@@ -999,6 +999,31 @@ footer {
     font-size: 1.35rem;
 }
 
+.servico-grupo-foto {
+    width: min(100%, 360px);
+    overflow: hidden;
+    margin: 0 auto 20px;
+    border: 1px solid rgba(215, 181, 109, 0.3);
+    border-radius: 12px;
+    background: #100f0c;
+}
+
+.servico-grupo-foto img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 20%;
+}
+
+.servico-grupo-foto figcaption {
+    padding: 10px 12px;
+    color: #e4c77f;
+    font-size: 0.95rem;
+    font-weight: bold;
+    text-align: center;
+}
+
 .servico {
     margin: 0;
     padding: 18px 0;
