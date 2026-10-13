@@ -27,11 +27,12 @@ jobs:
       - name: Prepare static site
         run: |
           mkdir -p public
-          cp index.html styles.css script.js leizi.jpg.jpeg leizi-atendimento.jpg leizi-cuidado.jpg servico-cuidados-faciais.jpg servico-massagem-corporal-maos.jpg servico-massagem-com-oleo.jpg servico-auriculoterapia.jpg servico-depilacao-cera.jpg avaliacao-*.jpg denise-terra.jpg raquel-campos.jpg rafaela-cavalcante.jpg public/
+          cp index.html styles.css script.js favicon.png leizi.jpg.jpeg leizi-atendimento.jpg leizi-cuidado.jpg servico-cuidados-faciais.jpg servico-massagem-corporal-maos.jpg servico-massagem-com-oleo.jpg servico-auriculoterapia.jpg servico-depilacao-cera.jpg avaliacao-*.jpg denise-terra.jpg raquel-campos.jpg rafaela-cavalcante.jpg public/
           touch public/.nojekyll
           test -s public/index.html
           test -s public/styles.css
           test -s public/script.js
+          test -s public/favicon.png
           test -s public/leizi.jpg.jpeg
           test -s public/leizi-atendimento.jpg
           test -s public/leizi-cuidado.jpg
